@@ -22,3 +22,4 @@ jobs:
 
       - run: echo ${{ github.repository }}
       - run: docker build -t ${{ env.registry }}/${{ github.repository }}/${{ github.job }}:latest -f dockerfiles/${{ github.job }}/Dockerfile dockerfiles/${{ github.job }}
+      - run: docker push ${{ env.registry }}/${{ github.repository }}/${{ github.job }}:latest
