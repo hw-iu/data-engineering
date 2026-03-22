@@ -21,4 +21,4 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
 
       - run: echo ${{ github.repository }}
-      - run: docker build -t ${{ env.registry }}/${{ github.repository }}/${{ github.job }}:latest -f dockerfiles/${{ github.job }} .
+      - run: docker build -t ${{ env.registry }}/${{ github.repository }}/${{ github.job }}:latest -f dockerfiles/${{ github.job }}/Dockerfile .
