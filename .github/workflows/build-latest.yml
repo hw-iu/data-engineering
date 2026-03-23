@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        image: [consume,enrich, kafka-admin, process, produce, setup]
+        image: [enrich, kafka-admin, process, produce, setup]
     steps:
       - uses: actions/checkout@v6
 
