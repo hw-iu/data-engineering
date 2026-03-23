@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        image: [setup]
+        image: [setup, produce]
     steps:
       - uses: actions/checkout@v4
 
