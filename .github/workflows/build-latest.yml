@@ -9,8 +9,11 @@ env:
   registry: ghcr.io
 
 jobs:
-  setup:
+  build:
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        image: [setup]
     steps:
       - uses: actions/checkout@v4
 
@@ -21,5 +24,5 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
 
       - run: echo ${{ github.repository }}
-      - run: docker build -t ${{ env.registry }}/${{ github.repository }}/${{ github.job }}:latest -f dockerfiles/${{ github.job }}/Dockerfile dockerfiles/${{ github.job }}
-      - run: docker push ${{ env.registry }}/${{ github.repository }}/${{ github.job }}:latest
+      - run: docker build -t ${{ env.registry }}/${{ github.repository }}/${{ matrix.image }}:latest -f dockerfiles/${{ matrix.image }}/Dockerfile dockerfiles/${{ matrix.image }}
+      - run: docker push ${{ env.registry }}/${{ github.repository }}/${{ matrix.image }}:latest
