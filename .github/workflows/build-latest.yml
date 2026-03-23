@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        image: [kafka-admin, produce, setup]
+        image: [consume,enrich, kafka-admin, process, produce, setup]
     steps:
       - uses: actions/checkout@v6
 
@@ -24,5 +24,5 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
 
       - run: echo ${{ github.repository }}
-      - run: docker build -t ${{ env.registry }}/${{ github.repository }}/${{ matrix.image }}:latest -f dockerfiles/${{ matrix.image }}/Dockerfile dockerfiles/${{ matrix.image }}
+      - run: docker build -t ${{ env.registry }}/${{ github.repository }}/${{ matrix.image }}:latest -f container_images/${{ matrix.image }}/Dockerfile container_images/${{ matrix.image }}
       - run: docker push ${{ env.registry }}/${{ github.repository }}/${{ matrix.image }}:latest

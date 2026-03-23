@@ -1,6 +1,6 @@
 FROM python:3.14-slim
 
-RUN pip install --root-user-action ignore confluent_kafka
+RUN pip install --root-user-action=ignore confluent_kafka
 
 RUN mkdir -p /app
 WORKDIR /app
