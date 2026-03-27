@@ -1,13 +1,8 @@
 #!/usr/bin/env python3
 
-from copy import deepcopy
 from datetime import timedelta
-from json import (dumps,
-                  load,
-                  loads)
 from multiprocessing import Process
 from os import environ
-from pathlib import Path
 from typing import Any, Optional, List, Tuple
 
 from quixstreams import Application
@@ -148,22 +143,6 @@ def process_process_messages(group_id: str = 'default',
     if debug: print(dataframe_monthly_aggregations)
 
     app.run()
-#
-#
-# if __name__ == '__main__':
-#     processes = list()
-#
-#     for consumer_number in range(1, consumer_count + 1):
-#         process = Process(target=process_consume_messages,
-#                           args=(consumer_group_id,
-#                                 kafka_servers,
-#                                 kafka_topic_input,
-#                                 kafka_topic_output,
-#                                 consumer_number,
-#                                 cities_static_data_by_id,
-#                                 debug))
-#         processes.append(process)
-#         process.start()
 
 if __name__ == "__main__":
     processes = list()
