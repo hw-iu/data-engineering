@@ -7,10 +7,8 @@ on:
       - '!main'
 
 env:
-  # The registry to which the built images will be pushed. In our case, this is the GitHub Container Registry
-  registry_host: ghcr.io
   # Full name of the container image including the registry and the repository
-  registry_image: ${{ env.registry_host }}/${{ github.repository }}
+  registry_image: ghcr.io/${{ github.repository }}
 
 jobs:
   build:
