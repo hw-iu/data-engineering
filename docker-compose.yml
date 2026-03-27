@@ -1,0 +1,135 @@
+# These are the volumes needed
+volumes:
+    # Every Kafka broker get one...
+    kafka-broker1-data:
+    kafka-broker2-data:
+    kafka-broker3-data:
+    # ...like the database
+    database:
+
+services:
+  kafka-broker1:
+    image: ${KAFKA_IMAGE}:${KAFKA_VERSION}
+    ports:
+      - 9001:9001
+    restart: unless-stopped
+    healthcheck:
+      test: /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-broker1:9001 --list
+      interval: 1s
+      timeout: 60s
+      retries: 60
+    volumes:
+      - kafka-broker1-data:/var/lib/kafka/data
+    environment:
+      # if one is set, much more has to be set too
+      CLUSTER_ID: kafka-cluster-1
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka-broker1:9093,2@kafka-broker2:9093,3@kafka-broker3:9093'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'INTERNAL'
+      KAFKA_ADVERTISED_LISTENERS: 'EXTERNAL://kafka-broker1:9001,INTERNAL://kafka-broker1:19092'
+      KAFKA_LISTENERS: 'CONTROLLER://kafka-broker1:9093,INTERNAL://kafka-broker1:19092,EXTERNAL://kafka-broker1:9001'
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+
+  kafka-broker2:
+    image: ${KAFKA_IMAGE}:${KAFKA_VERSION}
+    ports:
+      - 9002:9002
+    restart: unless-stopped
+    healthcheck:
+      test: /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-broker2:9002 --list
+      interval: 1s
+      timeout: 60s
+      retries: 60
+    volumes:
+      - kafka-broker2-data:/var/lib/kafka/data
+    environment:
+      # if one is set, much more has to be set too
+      CLUSTER_ID: kafka-cluster-1
+      KAFKA_NODE_ID: 2
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka-broker1:9093,2@kafka-broker2:9093,3@kafka-broker3:9093'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'INTERNAL'
+      KAFKA_ADVERTISED_LISTENERS: 'EXTERNAL://kafka-broker2:9002,INTERNAL://kafka-broker2:19092'
+      KAFKA_LISTENERS: 'CONTROLLER://kafka-broker2:9093,INTERNAL://kafka-broker2:19092,EXTERNAL://kafka-broker2:9002'
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+
+  kafka-broker3:
+    image: ${KAFKA_IMAGE}:${KAFKA_VERSION}
+    ports:
+      - 9003:9003
+    restart: unless-stopped
+    healthcheck:
+      test: /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-broker3:9003 --list
+      interval: 1s
+      timeout: 60s
+      retries: 60
+    volumes:
+      - kafka-broker3-data:/var/lib/kafka/data
+    environment:
+      # if one is set, much more has to be set too
+      CLUSTER_ID: kafka-cluster-1
+      KAFKA_NODE_ID: 3
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka-broker1:9093,2@kafka-broker2:9093,3@kafka-broker3:9093'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'INTERNAL'
+      KAFKA_ADVERTISED_LISTENERS: 'EXTERNAL://kafka-broker3:9003,INTERNAL://kafka-broker3:19092'
+      KAFKA_LISTENERS: 'CONTROLLER://kafka-broker3:9093,INTERNAL://kafka-broker3:19092,EXTERNAL://kafka-broker3:9003'
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+
+  kafka-admin:
+    image: ${PROJECT_IMAGE}/kafka-admin:${PROJECT_VERSION}
+    build:
+      context: .
+      dockerfile: container/Dockerfile_kafka-admin
+    depends_on:
+      kafka-broker1:
+        condition: service_healthy
+      kafka-broker2:
+        condition: service_healthy
+      kafka-broker3:
+        condition: service_healthy
+    environment:
+      KAFKA_SERVERS: kafka-broker1:9001,kafka-broker2:9002,kafka-broker3:9003
+      KAFKA_TOPICS: |
+        - ${KAFKA_TOPIC_INCOMING_RAW}
+        - ${KAFKA_TOPIC_INCOMING_ENRICHED}
+      KAFKA_PARTITIONS: ${KAFKA_PARTITIONS}
+      KAFKA_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
+      DEBUG: ${DEBUG}
+
+  produce-incoming-raw:
+    image: ${PROJECT_IMAGE}/produce:${PROJECT_VERSION}
+    build:
+      context: .
+      dockerfile: container/Dockerfile_kafka-producer-incoming-raw
+    depends_on:
+      kafka-admin:
+        condition: service_completed_successfully
+    restart: no
+    volumes:
+      - ./data/emsx_dataset:/data
+    environment:
+      DATA_DIRECTORY: /data
+      KAFKA_SERVERS: kafka-broker1:9001,kafka-broker2:9002,kafka-broker3:9003
+      KAFKA_TOPIC: ${KAFKA_TOPIC_INCOMING_RAW}
+      DEBUG: ${DEBUG}
+      DELAY_BETWEEN_MESSAGES: ${DELAY_BETWEEN_MESSAGES}

@@ -4,11 +4,13 @@ from json import dumps
 from multiprocessing import Process
 from os import environ
 from pathlib import Path
-from sys import exit
+from sys import (exit,
+                 stderr,
+                 stdout)
+
 from time import sleep
 
 from confluent_kafka import Producer
-
 
 NEEDED_ENVIRONMENT_VARIABLES = [
     'DATA_DIRECTORY',
@@ -30,6 +32,10 @@ kafka_topic = environ.get('KAFKA_TOPIC', 'incoming')
 debug = True if environ.get('DEBUG', 'false').lower() == 'true' else False
 delay_between_messages = int(environ.get('DELAY_BETWEEN_MESSAGES', '0'))
 
+# allow logging from multiprocessing subprocesses
+stdout.reconfigure(line_buffering=True)
+stderr.reconfigure(line_buffering=True)
+
 
 def producer_callback(error, message):
     if error:
@@ -42,6 +48,7 @@ def process_data_file(data_file: Path,
                       debug: bool = False):
     if debug:
         print(f'Found {data_file}')
+
     producer = Producer({
         'bootstrap.servers': f'{kafka_servers}'
     })
@@ -84,7 +91,6 @@ def process_data_file(data_file: Path,
 if __name__ == '__main__':
     processes = list()
     for data_file in data_directory_path.glob('[0-9]*.csv'):
-    #for data_file in [data_directory_path / '1.csv']:
         process = Process(target=process_data_file, args=(data_file,
                                                           kafka_servers,
                                                           kafka_topic,

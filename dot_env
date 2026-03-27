@@ -1,0 +1,16 @@
+DEBUG=false
+# delay in seconds for the producer of the incoming raw data to wait between messages
+# a delay of 0 means that the producer will produce messages as fast as possible
+DELAY_BETWEEN_MESSAGES=1
+
+PROJECT_IMAGE=ghcr.io/hw-iu/data-engineering
+PROJECT_VERSION=latest
+
+KAFKA_IMAGE=apache/kafka
+KAFKA_VERSION=4.1.2
+
+KAFKA_TOPIC_INCOMING_RAW=incoming-raw
+KAFKA_TOPIC_INCOMING_ENRICHED=incoming-enriched
+
+KAFKA_PARTITIONS=10
+KAFKA_REPLICATION_FACTOR=3

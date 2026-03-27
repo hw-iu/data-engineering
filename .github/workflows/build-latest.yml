@@ -31,7 +31,7 @@ jobs:
 
       # First, build the container image of the current matrix entry...
       - name: Build container image
-        run: docker build -t ${{ env.registry_image }}/${{ matrix.image }}:latest -f container_images/${{ matrix.image }}/Dockerfile container_images/${{ matrix.image }}
+        run: docker build -t ${{ env.registry_image }}/${{ matrix.image }}:latest -f docker/${{ matrix.image }}/Dockerfile docker/${{ matrix.image }}
 
       # ...then push the built image to the GitHub Container Registry
       - name: Push container image
