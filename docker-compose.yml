@@ -1,6 +1,6 @@
 # These are the volumes needed
 volumes:
-    # Every Kafka broker get one...
+    # Every Kafka broker gets one...
     kafka-broker1-data:
     kafka-broker2-data:
     kafka-broker3-data:
@@ -115,6 +115,19 @@ services:
       KAFKA_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
       DEBUG: ${DEBUG}
 
+  database:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    # only expose for debugging
+    ports:
+      - 5432:5432
+    volumes:
+      - database:/var/lib/postgresql
+
   produce:
     image: ${PROJECT_IMAGE}/produce:${PROJECT_VERSION}
     build:
@@ -145,10 +158,30 @@ services:
       - ./data/simplemaps:/data/simplemaps
     environment:
       # number of parallel consumers and enrichers
-      CONSUMER_COUNT: 5
-      CONSUMER_GROUP_ID: incoming_raw_data_consumers
+      CONSUMER_COUNT: ${CONSUMER_COUNT}
+      CONSUMER_GROUP_ID: ${KAFKA_TOPIC_INCOMING_RAW}_consumers
       DATA_DIRECTORY: /data
       KAFKA_SERVERS: kafka-broker1:9001,kafka-broker2:9002,kafka-broker3:9003
-      KAFKA_TOPIC_INPUT: incoming_raw_data
-      KAFKA_TOPIC_OUTPUT: incoming_enriched_data
+      KAFKA_TOPIC_INPUT: ${KAFKA_TOPIC_INCOMING_RAW}
+      KAFKA_TOPIC_OUTPUT: ${KAFKA_TOPIC_INCOMING_ENRICHED}
       DEBUG: ${DEBUG}
+
+  process:
+    image: ${PROJECT_IMAGE}/process:${PROJECT_VERSION}
+    build:
+      context: docker/process
+    depends_on:
+      kafka-admin:
+        condition: service_completed_successfully
+      database:
+        condition: service_started
+    restart: unless-stopped
+    environment:
+      # number of parallel consumers and enrichers
+      CONSUMER_COUNT: ${CONSUMER_COUNT}
+      CONSUMER_GROUP_ID: ${KAFKA_TOPIC_INCOMING_ENRICHED}_consumers
+      KAFKA_SERVERS: kafka-broker1:9001,kafka-broker2:9002,kafka-broker3:9003
+      KAFKA_TOPIC_INPUT: ${KAFKA_TOPIC_INCOMING_ENRICHED}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}

@@ -14,3 +14,11 @@ KAFKA_TOPIC_INCOMING_ENRICHED=incoming-enriched
 
 KAFKA_PARTITIONS=10
 KAFKA_REPLICATION_FACTOR=3
+
+# at least the consumers which enrich the incoming raw data
+CONSUMER_COUNT=5
+
+# Database access for server and client
+DB_USER=user
+DB_PASSWORD=password
+DB_DATABASE=data

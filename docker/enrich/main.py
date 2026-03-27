@@ -8,6 +8,9 @@ from json import (dumps,
 from multiprocessing import Process
 from os import environ
 from pathlib import Path
+from sys import (exit,
+                 stderr,
+                 stdout)
 
 from confluent_kafka import (Consumer,
                              Producer)
@@ -39,6 +42,10 @@ kafka_servers = environ.get('KAFKA_SERVERS', 'localhost:9092')
 kafka_topic_input = environ.get('KAFKA_TOPIC_INPUT', 'incoming')
 kafka_topic_output = environ.get('KAFKA_TOPIC_OUTPUT', 'outgoing')
 debug = True if environ.get('DEBUG', 'false').lower() == 'true' else False
+
+# allow logging from multiprocessing subprocesses
+stdout.reconfigure(line_buffering=True)
+stderr.reconfigure(line_buffering=True)
 
 cities_ids_mapping_path = data_directory_path / 'cities_ids' / 'mapping.json'
 if not cities_ids_mapping_path.exists():
@@ -112,8 +119,6 @@ def process_consume_messages(group_id: str = 'default',
         'bootstrap.servers': f'{kafka_servers}'
     })
 
-    counter = 0
-
     print('Listening for messages...')
     try:
         while True:
@@ -160,16 +165,14 @@ def process_consume_messages(group_id: str = 'default',
                 )
             # flush in batches
             producer.flush()
-
             # tell Kafka about the successful consumption
             consumer.commit()
-
-            counter += 1
     finally:
         consumer.close()
 
 
 if __name__ == '__main__':
+    # One list to hold all processes
     processes = list()
 
     for consumer_number in range(1, consumer_count + 1):
