@@ -1,12 +1,17 @@
-FROM debian:13-slim
+#FROM debian:13-slim
+FROM python:3.14-slim
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update
 RUN apt -y install curl \
                    unzip
 
-# mapping.json is generated from https://simplemaps.com/static/data/country-cities/de/de.json
-COPY mapping.json /usr/local/share/mapping.json
+RUN pip install --root-user-action=ignore playwright
+RUN playwright install firefox
+COPY curl-browser.py /usr/local/bin
+RUN chmod +x /usr/local/bin/curl-browser.py
+COPY create-cities-mapping.py /usr/local/bin
+RUN chmod +x /usr/local/bin/create-cities-mapping.py
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh

@@ -98,8 +98,7 @@ services:
   kafka-admin:
     image: ${PROJECT_IMAGE}/kafka-admin:${PROJECT_VERSION}
     build:
-      context: .
-      dockerfile: container/Dockerfile_kafka-admin
+      context: docker/kafka-admin
     depends_on:
       kafka-broker1:
         condition: service_healthy
@@ -116,11 +115,10 @@ services:
       KAFKA_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
       DEBUG: ${DEBUG}
 
-  produce-incoming-raw:
+  produce:
     image: ${PROJECT_IMAGE}/produce:${PROJECT_VERSION}
     build:
-      context: .
-      dockerfile: container/Dockerfile_kafka-producer-incoming-raw
+      context: docker/produce
     depends_on:
       kafka-admin:
         condition: service_completed_successfully
@@ -133,3 +131,24 @@ services:
       KAFKA_TOPIC: ${KAFKA_TOPIC_INCOMING_RAW}
       DEBUG: ${DEBUG}
       DELAY_BETWEEN_MESSAGES: ${DELAY_BETWEEN_MESSAGES}
+
+  enrich:
+    image: ${PROJECT_IMAGE}/enrich:${PROJECT_VERSION}
+    build:
+      context: docker/enrich
+    depends_on:
+      kafka-admin:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    volumes:
+      - ./data/cities_ids:/data/cities_ids
+      - ./data/simplemaps:/data/simplemaps
+    environment:
+      # number of parallel consumers and enrichers
+      CONSUMER_COUNT: 5
+      CONSUMER_GROUP_ID: incoming_raw_data_consumers
+      DATA_DIRECTORY: /data
+      KAFKA_SERVERS: kafka-broker1:9001,kafka-broker2:9002,kafka-broker3:9003
+      KAFKA_TOPIC_INPUT: incoming_raw_data
+      KAFKA_TOPIC_OUTPUT: incoming_enriched_data
+      DEBUG: ${DEBUG}

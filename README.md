@@ -18,3 +18,4 @@ docker run \
 ```
 
 🚧 We need about 22 GB of free space, including the downloaded zipped and extracted data.
+

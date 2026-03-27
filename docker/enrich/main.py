@@ -16,7 +16,6 @@ from confluent_kafka import (Consumer,
 NEEDED_ENVIRONMENT_VARIABLES = [
     'CONSUMER_COUNT',
     'CONSUMER_GROUP_ID',
-    'CONSUMER_MESSAGES_COUNT',
     'DATA_DIRECTORY',
     'KAFKA_SERVERS',
     'KAFKA_TOPIC_INPUT',
@@ -31,7 +30,6 @@ for needed_environment_variable in NEEDED_ENVIRONMENT_VARIABLES:
 
 consumer_count = int(environ.get('CONSUMER_COUNT', '1'))
 consumer_group_id = environ.get('CONSUMER_GROUP_ID', 'incoming_group')
-consumer_messages_count = int(environ.get('CONSUMER_MESSAGES_COUNT', '5'))
 data_directory_path = Path(environ.get('DATA_DIRECTORY'), '')
 if not data_directory_path.exists():
     exit(f'{data_directory_path.name} does not exist')
@@ -119,17 +117,12 @@ def process_consume_messages(group_id: str = 'default',
     print('Listening for messages...')
     try:
         while True:
-            messages = consumer.consume(num_messages=consumer_messages_count, timeout=1.0)
+            messages = consumer.consume(timeout=1.0)
             for message in messages:
                 # parse incoming value (assume it's JSON payload or Connect-envelope)
                 raw = message.value()
                 try:
                     value = loads(raw.decode('utf-8'))
-                    # # if incoming message is an envelope with payload, extract payload
-                    # if isinstance(value_obj, dict) and 'payload' in value_obj and 'schema' in value_obj:
-                    #     value = value_obj['payload']
-                    # else:
-                    #     value = value_obj
                 except Exception:
                     # if parsing fails, skip
                     if debug:
@@ -137,11 +130,7 @@ def process_consume_messages(group_id: str = 'default',
                     continue
 
                 # enrich
-                #print(f'value: {value}')
-                #print(f'cities_static_data_by_id: {cities_static_data_by_id}')
                 value.update(cities_static_data_by_id.get(value.get('site_id')))
-                #if debug:
-                #    print(value)
 
                 # build payload with type conversions
                 try:
@@ -171,6 +160,9 @@ def process_consume_messages(group_id: str = 'default',
                 )
             # flush in batches
             producer.flush()
+
+            # tell Kafka about the successful consumption
+            consumer.commit()
 
             counter += 1
     finally:

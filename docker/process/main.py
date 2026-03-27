@@ -20,7 +20,6 @@ from quixstreams.sinks.community.postgresql import PostgreSQLSink
 NEEDED_ENVIRONMENT_VARIABLES = [
     'CONSUMER_COUNT',
     'CONSUMER_GROUP_ID',
-    # 'CONSUMER_MESSAGES_COUNT',
     'KAFKA_SERVERS',
     'KAFKA_TOPIC_INPUT',
     'DB_USER',
@@ -34,19 +33,8 @@ for needed_environment_variable in NEEDED_ENVIRONMENT_VARIABLES:
 
 consumer_count = int(environ.get('CONSUMER_COUNT', '1'))
 consumer_group_id = environ.get('CONSUMER_GROUP_ID', 'incoming_group')
-# consumer_messages_count = int(environ.get('CONSUMER_MESSAGES_COUNT', '5'))
-# data_directory_path = Path(environ.get('DATA_DIRECTORY'), '')
-# if not data_directory_path.exists():
-#     exit(f'{data_directory_path.name} does not exist')
-# if not data_directory_path.is_dir():
-#     exit(f'{data_directory_path.name} is not a directory')
-# bytewax wants brokers to be a list and no string
-# kafka_servers = environ.get('KAFKA_SERVERS', 'localhost:9092').split(',')
 kafka_servers = environ.get('KAFKA_SERVERS', 'localhost:9092')
-# same same for topics
-# kafka_topic_input = [environ.get('KAFKA_TOPIC_INPUT', 'incoming')]
 kafka_topic_input = environ.get('KAFKA_TOPIC_INPUT', 'incoming')
-# kafka_topic_output = environ.get('KAFKA_TOPIC_OUTPUT', 'outgoing')
 debug = True if environ.get('DEBUG', 'false').lower() == 'true' else False
 
 db_user = environ.get('DB_USER', 'user')
@@ -62,8 +50,6 @@ def get_timestamp_epoch_ms(
     Specifying a custom timestamp extractor to use the timestamp from the message payload
     instead of Kafka timestamp.
     """
-    # print(f'kafka_topic_input: {kafka_topic_input}')
-    # print(f"get_timestamp_epoch_ms: {value['site_id']} {value['timestamp_epoch_ms']}")
     return value['timestamp_epoch_ms']
 
 
