@@ -1,4 +1,4 @@
-# Only Ubuntu has newer librdkafka-dev package, so we use it as the base image for this container.
+# Only Ubuntu 26.04 has newer librdkafka-dev package, so we use it as the base image for this container.
 FROM ubuntu:26.04
 ARG DEBIAN_FRONTEND=noninteractive
 
