@@ -12,7 +12,7 @@ DATA_DIR_CITIES_IDS="${DATA_DIR}/cities_ids"
 # The raw dataset will be extracted to /data/emsx_dataset and sorted in place
 DATA_DIR_EMSX_RAW="${DATA_DIR}/emsx_dataset"
 # Sorting is necessary because of the CSV files partly have scrambled date order
-DATA_DIR_ESMX_SORTED="${DATA_DIR_EMSX_RAW}/sorted_temp"
+DATA_DIR_EMSX_SORTED="${DATA_DIR_EMSX_RAW}/sorted_temp"
 # The expected SHA256 checksum of the ZIP file to verify integrity
 EMSX_SHA256SUM_WANTED="7dec68cd9fd00fa7ccca651e82640b8f7a2f67d7c4f4e67cec64ce563341362c"
 
@@ -65,16 +65,16 @@ cd ${DATA_DIR_EMSX_RAW}
 # unneeded, rather disturbing for sorting
 rm -f metadata.csv pv.csv
 # create temporary directory for sorted files, sort each CSV file and move it back to the raw dataset directory
-mkdir -p ${DATA_DIR_ESX_SORTED}
+mkdir -p ${DATA_DIR_EMSX_SORTED}
 for CSV_FILE in *.csv; do
   echo "Sorting ${CSV_FILE}"
   # Preserve CSV headers
-  head -n1 "${CSV_FILE}" > "${DATA_DIR_ESX_SORTED}/${CSV_FILE}"
-  sort "${CSV_FILE}" | head -n-1 >> "${DATA_DIR_ESX_SORTED}/${CSV_FILE}"
-  mv "${DATA_DIR_ESX_SORTED}/${CSV_FILE}" "${DATA_DIR_EMSX_RAW}/${CSV_FILE}"
+  head -n1 "${CSV_FILE}" > "${DATA_DIR_EMSX_SORTED}/${CSV_FILE}"
+  sort "${CSV_FILE}" | head -n-1 >> "${DATA_DIR_EMSX_SORTED}/${CSV_FILE}"
+  mv "${DATA_DIR_EMSX_SORTED}/${CSV_FILE}" "${DATA_DIR_EMSX_RAW}/${CSV_FILE}"
   done
 
 # remove temporary sorting directory
-rm -rf ${DATA_DIR_ESX_SORTED}
+rm -rf ${DATA_DIR_EMSX_SORTED}
 
 echo "Dataset is ready."
