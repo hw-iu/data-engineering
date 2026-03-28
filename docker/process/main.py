@@ -3,6 +3,9 @@
 from datetime import timedelta
 from multiprocessing import Process
 from os import environ
+from sys import (exit,
+                 stderr,
+                 stdout)
 from typing import Any, Optional, List, Tuple
 
 from quixstreams import Application
@@ -13,8 +16,8 @@ from quixstreams.models import TimestampType
 from quixstreams.sinks.community.postgresql import PostgreSQLSink
 
 NEEDED_ENVIRONMENT_VARIABLES = [
-    'CONSUMER_COUNT',
     'CONSUMER_GROUP_ID',
+    'PROCESS_CONSUMER_COUNT',
     'KAFKA_SERVERS',
     'KAFKA_TOPIC_INPUT',
     'DB_USER',
@@ -26,15 +29,21 @@ for needed_environment_variable in NEEDED_ENVIRONMENT_VARIABLES:
     if not environ.get(needed_environment_variable):
         exit(f'{needed_environment_variable} environment variable is not set')
 
-consumer_count = int(environ.get('CONSUMER_COUNT', '1'))
 consumer_group_id = environ.get('CONSUMER_GROUP_ID', 'incoming_group')
+process_consumer_count = int(environ.get('PROCESS_CONSUMER_COUNT', '1'))
 kafka_servers = environ.get('KAFKA_SERVERS', 'localhost:9092')
 kafka_topic_input = environ.get('KAFKA_TOPIC_INPUT', 'incoming')
-debug = True if environ.get('DEBUG', 'false').lower() == 'true' else False
 
 db_user = environ.get('DB_USER', 'user')
 db_password = environ.get('DB_PASSWORD', 'password')
 db_database = environ.get('DB_DATABASE', 'database')
+
+debug = True if environ.get('DEBUG', 'false').lower() == 'true' else False
+
+# allow logging from multiprocessing subprocesses
+stdout.reconfigure(line_buffering=True)
+stderr.reconfigure(line_buffering=True)
+
 
 def get_timestamp_epoch_ms(
         value: Any,
@@ -77,7 +86,9 @@ def process_process_messages(group_id: str = 'default',
         user=db_user,
         password=db_password,
         table_name='daily_aggregations',
-        schema_auto_update=True
+        schema_auto_update=True,
+        primary_key_columns=['city', 'timestamp'],
+        upsert_on_primary_key=True
     )
     if debug: print(postgres_sink_daily_aggregations)
 
@@ -88,7 +99,9 @@ def process_process_messages(group_id: str = 'default',
         user=db_user,
         password=db_password,
         table_name='weekly_aggregations',
-        schema_auto_update=True
+        schema_auto_update=True,
+        primary_key_columns=['city', 'timestamp'],
+        upsert_on_primary_key=True
     )
     if debug: print(postgres_sink_weekly_aggregations)
 
@@ -99,11 +112,14 @@ def process_process_messages(group_id: str = 'default',
         user=db_user,
         password=db_password,
         table_name='monthly_aggregations',
-        schema_auto_update=True
+        schema_auto_update=True,
+        primary_key_columns=['city', 'timestamp'],
+        upsert_on_primary_key=True
     )
     if debug: print(postgres_sink_monthly_aggregations)
 
-    dataframe = app.dataframe(topic=topic_input).group_by('site_id')
+    #dataframe = app.dataframe(topic=topic_input).group_by('site_id')
+    dataframe = app.dataframe(topic=topic_input).group_by('city')
     if debug: print(dataframe)
 
     dataframe_daily_aggregations = (
@@ -147,7 +163,7 @@ def process_process_messages(group_id: str = 'default',
 if __name__ == "__main__":
     processes = list()
 
-    for consumer_number in range(1, consumer_count + 1):
+    for consumer_number in range(1, process_consumer_count + 1):
         process = Process(target=process_process_messages,
                           args=(consumer_group_id,
                                 kafka_servers,

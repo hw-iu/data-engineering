@@ -27,10 +27,13 @@ if not data_directory_path.exists():
     exit(f'{data_directory_path.name} does not exist')
 if not data_directory_path.is_dir():
     exit(f'{data_directory_path.name} is not a directory')
+
 kafka_servers = environ.get('KAFKA_SERVERS', 'localhost:9092')
 kafka_topic = environ.get('KAFKA_TOPIC', 'incoming')
-debug = True if environ.get('DEBUG', 'false').lower() == 'true' else False
+
 delay_between_messages = int(environ.get('DELAY_BETWEEN_MESSAGES', '0'))
+
+debug = True if environ.get('DEBUG', 'false').lower() == 'true' else False
 
 # allow logging from multiprocessing subprocesses
 stdout.reconfigure(line_buffering=True)

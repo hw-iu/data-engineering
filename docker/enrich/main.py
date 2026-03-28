@@ -17,9 +17,10 @@ from confluent_kafka import (Consumer,
 
 
 NEEDED_ENVIRONMENT_VARIABLES = [
-    'CONSUMER_COUNT',
     'CONSUMER_GROUP_ID',
     'DATA_DIRECTORY',
+    'ENRICH_CONSUMER_COUNT',
+    'ENRICH_MESSAGES_COUNT',
     'KAFKA_SERVERS',
     'KAFKA_TOPIC_INPUT',
     'KAFKA_TOPIC_OUTPUT',
@@ -31,16 +32,20 @@ for needed_environment_variable in NEEDED_ENVIRONMENT_VARIABLES:
     if not environ.get(needed_environment_variable):
         exit(f'{needed_environment_variable} environment variable is not set')
 
-consumer_count = int(environ.get('CONSUMER_COUNT', '1'))
-consumer_group_id = environ.get('CONSUMER_GROUP_ID', 'incoming_group')
 data_directory_path = Path(environ.get('DATA_DIRECTORY'), '')
 if not data_directory_path.exists():
     exit(f'{data_directory_path.name} does not exist')
 if not data_directory_path.is_dir():
     exit(f'{data_directory_path.name} is not a directory')
+
+consumer_group_id = environ.get('CONSUMER_GROUP_ID', 'incoming_group')
+enrich_consumer_count = int(environ.get('ENRICH_CONSUMER_COUNT', '1'))
+enrich_messages_count = int(environ.get('ENRICH_MESSAGES_COUNT', '5'))
+
 kafka_servers = environ.get('KAFKA_SERVERS', 'localhost:9092')
 kafka_topic_input = environ.get('KAFKA_TOPIC_INPUT', 'incoming')
 kafka_topic_output = environ.get('KAFKA_TOPIC_OUTPUT', 'outgoing')
+
 debug = True if environ.get('DEBUG', 'false').lower() == 'true' else False
 
 # allow logging from multiprocessing subprocesses
@@ -122,7 +127,8 @@ def process_consume_messages(group_id: str = 'default',
     print('Listening for messages...')
     try:
         while True:
-            messages = consumer.consume(timeout=1.0)
+            messages = consumer.consume(num_messages=enrich_messages_count,
+                                        timeout=1.0)
             for message in messages:
                 # parse incoming value (assume it's JSON payload or Connect-envelope)
                 raw = message.value()
@@ -175,7 +181,7 @@ if __name__ == '__main__':
     # One list to hold all processes
     processes = list()
 
-    for consumer_number in range(1, consumer_count + 1):
+    for consumer_number in range(1, enrich_consumer_count + 1):
         process = Process(target=process_consume_messages,
                           args=(consumer_group_id,
                                 kafka_servers,

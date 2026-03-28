@@ -4,8 +4,10 @@ volumes:
     kafka-broker1-data:
     kafka-broker2-data:
     kafka-broker3-data:
-    # ...like the database
+    # ...like the database...
     database:
+    # ...and Grafana
+    grafana_data:
 
 services:
   kafka-broker1:
@@ -157,9 +159,9 @@ services:
       - ./data/cities_ids:/data/cities_ids
       - ./data/simplemaps:/data/simplemaps
     environment:
-      # number of parallel consumers and enrichers
-      CONSUMER_COUNT: ${CONSUMER_COUNT}
       CONSUMER_GROUP_ID: ${KAFKA_TOPIC_INCOMING_RAW}_consumers
+      ENRICH_CONSUMER_COUNT: ${ENRICH_CONSUMER_COUNT}
+      ENRICH_MESSAGES_COUNT: ${ENRICH_MESSAGES_COUNT}
       DATA_DIRECTORY: /data
       KAFKA_SERVERS: kafka-broker1:9001,kafka-broker2:9002,kafka-broker3:9003
       KAFKA_TOPIC_INPUT: ${KAFKA_TOPIC_INCOMING_RAW}
@@ -177,11 +179,29 @@ services:
         condition: service_started
     restart: unless-stopped
     environment:
-      # number of parallel consumers and enrichers
-      CONSUMER_COUNT: ${CONSUMER_COUNT}
       CONSUMER_GROUP_ID: ${KAFKA_TOPIC_INCOMING_ENRICHED}_consumers
+      PROCESS_CONSUMER_COUNT: ${PROCESS_CONSUMER_COUNT}
       KAFKA_SERVERS: kafka-broker1:9001,kafka-broker2:9002,kafka-broker3:9003
       KAFKA_TOPIC_INPUT: ${KAFKA_TOPIC_INCOMING_ENRICHED}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_DATABASE: ${DB_DATABASE}
+
+  grafana:
+    image: grafana/grafana-enterprise:${GRAFANA_VERSION}
+    ports:
+      - "3000:3000"
+    depends_on:
+      database:
+        condition: service_started
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - ./grafana/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
+      - ./grafana/dashboard.json:/var/lib/grafana/dashboards/dashboard.json
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
