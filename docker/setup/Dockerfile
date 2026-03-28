@@ -1,4 +1,3 @@
-#FROM debian:13-slim
 FROM python:3.14-slim
 ARG DEBIAN_FRONTEND=noninteractive
 

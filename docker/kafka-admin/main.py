@@ -1,5 +1,6 @@
-# python
 #!/usr/bin/env python3
+# ©2026 Henri Wahl
+
 from os import environ
 from confluent_kafka.admin import AdminClient, NewTopic
 

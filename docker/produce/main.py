@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# ©2026 Henri Wahl
+
 from csv import DictReader
 from json import dumps
 from multiprocessing import Process

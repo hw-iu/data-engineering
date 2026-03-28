@@ -9,6 +9,7 @@ It consists of these components:
 
 - **Producer**: Python script producing messages to a Kafka topic from the downloaded data files
 - **Kafka Cluster**: Three Kafka nodes forming a cluster as the backbone of the data pipeline
+- **Kafka Admin**: Initializes the Kafka cluster by creating the necessary topics
 - **Enricher**: Consumes raw incoming data, enriches it with city information and produces it to another Kafka topic
 - **Processing**: Consumes enriched data, does aggregations and writes it to a database
 - **Database**: Stores the processed data for later use, e.g. for visualization
@@ -22,7 +23,8 @@ The setup and the actual processing will be done in containers, so there are no 
 
 The downloaded data will take about 5 GB of free space. The extracted data will take about 15 GB of free space.
 
-For checking out the code, you will need **git**. Alternatively, you can also download the code as a zip file from GitHub.
+For checking out the code, you will need **git**.
+Alternatively, you can also download the code as a zip file from GitHub.
 
 
 ## Setup
@@ -91,7 +93,7 @@ docker compose up --detached
 This will start all containers in the background. You can check the logs with:
 
 ```bash
-docker compose logs --follow
+docker compose logs --follow --timestamps
 ```
 
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# ©2026 Henri Wahl
 
 from copy import deepcopy
 from datetime import datetime
