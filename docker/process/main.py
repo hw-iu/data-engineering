@@ -86,7 +86,9 @@ def process_process_messages(group_id: str = 'default',
         user=db_user,
         password=db_password,
         table_name='daily_aggregations',
-        schema_auto_update=True
+        schema_auto_update=True,
+        primary_key_columns=['city', 'timestamp'],
+        upsert_on_primary_key=True
     )
     if debug: print(postgres_sink_daily_aggregations)
 
@@ -97,7 +99,9 @@ def process_process_messages(group_id: str = 'default',
         user=db_user,
         password=db_password,
         table_name='weekly_aggregations',
-        schema_auto_update=True
+        schema_auto_update=True,
+        primary_key_columns=['city', 'timestamp'],
+        upsert_on_primary_key=True
     )
     if debug: print(postgres_sink_weekly_aggregations)
 
@@ -108,11 +112,14 @@ def process_process_messages(group_id: str = 'default',
         user=db_user,
         password=db_password,
         table_name='monthly_aggregations',
-        schema_auto_update=True
+        schema_auto_update=True,
+        primary_key_columns=['city', 'timestamp'],
+        upsert_on_primary_key=True
     )
     if debug: print(postgres_sink_monthly_aggregations)
 
-    dataframe = app.dataframe(topic=topic_input).group_by('site_id')
+    #dataframe = app.dataframe(topic=topic_input).group_by('site_id')
+    dataframe = app.dataframe(topic=topic_input).group_by('city')
     if debug: print(dataframe)
 
     dataframe_daily_aggregations = (
