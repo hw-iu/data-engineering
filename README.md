@@ -2,6 +2,19 @@
 
 This is the documentation for the project data engineering course at the IU.
 
+## Overview
+
+The project is a data pipeline processing energy data from photovoltaic systems in Germany.
+It consists of these components:
+
+- **Producer**: Python script producing messages to a Kafka topic from the downloaded data files
+- **Kafka Cluster**: Three Kafka nodes forming a cluster as the backbone of the data pipeline
+- **Enricher**: Consumes raw incoming data, enriches it with city information and produces it to another Kafka topic
+- **Processing**: Consumes enriched data, does aggregations and writes it to a database
+- **Database**: Stores the processed data for later use, e.g. for visualization
+- **Grafana**: Visualization tool to show the data from the database
+
+
 ## Requirements
 
 This project should run on any Linux system that has **Docker** installed. It is tested on Fedora 43 and Ubuntu 24.04.
@@ -69,5 +82,20 @@ ln -s dot_env .env
 
 ## Processing data
 
+When everything is set up, you can start the data pipeline with docker compose:
+
+```bash
+docker compose up --detached
+``` 
+
+This will start all containers in the background. You can check the logs with:
+
+```bash
+docker compose logs --follow
+```
 
 
+## Watching data
+
+The setup contains a Grafana instance that is configured to show the data in the database.
+You can access it at [http://localhost:3000](http://localhost:3000) with the credentials from the `.env` file.
