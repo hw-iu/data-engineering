@@ -190,15 +190,15 @@ services:
   grafana:
     image: grafana/grafana-enterprise:${GRAFANA_VERSION}
     ports:
-      - "55555:3000"
+      - "3000:3000"
     depends_on:
       database:
         condition: service_started
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
-      - ./dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
-      - ./dashboard.json:/var/lib/grafana/dashboards/dashboard.json
+      - ./grafana/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - ./grafana/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
+      - ./grafana/dashboard.json:/var/lib/grafana/dashboards/dashboard.json
     environment:
       GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
