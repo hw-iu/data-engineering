@@ -21,7 +21,10 @@ It consists of these components:
 This project should run on any Linux system that has **Docker** installed. It is tested on Fedora 43 and Ubuntu 24.04.
 The setup and the actual processing will be done in containers, so there are no further requirements.
 
-The downloaded data will take about 5 GB of free space. The extracted data will take about 15 GB of free space.
+The downloaded data will take about **5 GB** of free space.
+The extracted data will take about **15 GB** of free space.
+The data in the container volumes will take about **10 GB** of free space, which sounds a lot,
+but because Kafka runs as cluster with three nodes, it will replicate the data three times.
 
 For checking out the code, you will need **git**.
 Alternatively, you can also download the code as a zip file from GitHub.
