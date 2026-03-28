@@ -157,9 +157,9 @@ services:
       - ./data/cities_ids:/data/cities_ids
       - ./data/simplemaps:/data/simplemaps
     environment:
-      # number of parallel consumers and enrichers
-      CONSUMER_COUNT: ${CONSUMER_COUNT}
       CONSUMER_GROUP_ID: ${KAFKA_TOPIC_INCOMING_RAW}_consumers
+      ENRICH_CONSUMER_COUNT: ${ENRICH_CONSUMER_COUNT}
+      ENRICH_MESSAGES_COUNT: ${ENRICH_MESSAGES_COUNT}
       DATA_DIRECTORY: /data
       KAFKA_SERVERS: kafka-broker1:9001,kafka-broker2:9002,kafka-broker3:9003
       KAFKA_TOPIC_INPUT: ${KAFKA_TOPIC_INCOMING_RAW}
@@ -177,9 +177,8 @@ services:
         condition: service_started
     restart: unless-stopped
     environment:
-      # number of parallel consumers and enrichers
-      CONSUMER_COUNT: ${CONSUMER_COUNT}
       CONSUMER_GROUP_ID: ${KAFKA_TOPIC_INCOMING_ENRICHED}_consumers
+      PROCESS_CONSUMER_COUNT: ${PROCESS_CONSUMER_COUNT}
       KAFKA_SERVERS: kafka-broker1:9001,kafka-broker2:9002,kafka-broker3:9003
       KAFKA_TOPIC_INPUT: ${KAFKA_TOPIC_INCOMING_ENRICHED}
       DB_USER: ${DB_USER}

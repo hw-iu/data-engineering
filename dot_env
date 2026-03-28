@@ -23,7 +23,7 @@ ENRICH_CONSUMER_COUNT=5
 # when batch loading the database
 ENRICH_MESSAGES_COUNT=10
 
-PROCESS_CONSUMER_COUNT=5
+PROCESS_CONSUMER_COUNT=10
 
 # Database access for server and client
 DB_USER=user
