@@ -1,7 +1,8 @@
 DEBUG=false
 # delay in seconds for the producer of the incoming raw data to wait between messages
 # a delay of 0 means that the producer will produce messages as fast as possible
-DELAY_BETWEEN_MESSAGES=1
+#DELAY_BETWEEN_MESSAGES=1
+DELAY_BETWEEN_MESSAGES=0
 
 PROJECT_IMAGE=ghcr.io/hw-iu/data-engineering
 PROJECT_VERSION=latest
@@ -15,8 +16,14 @@ KAFKA_TOPIC_INCOMING_ENRICHED=incoming-enriched
 KAFKA_PARTITIONS=10
 KAFKA_REPLICATION_FACTOR=3
 
-# at least the consumers which enrich the incoming raw data
-CONSUMER_COUNT=5
+# at least the number of consumers which enrich the incoming raw data
+ENRICH_CONSUMER_COUNT=5
+# how many messages the enrichment consumers should consume at once
+# should be 1 when simulating realtime streaming and something higher
+# when batch loading the database
+ENRICH_MESSAGES_COUNT=10
+
+PROCESS_CONSUMER_COUNT=5
 
 # Database access for server and client
 DB_USER=user
