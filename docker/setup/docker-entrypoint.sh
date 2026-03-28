@@ -25,7 +25,6 @@ mkdir -p ${DATA_DIR_CITIES_IDS}
 curl-browser.py https://simplemaps.com/static/data/country-cities/de/de.json > ${DATA_DIR_SIMPLEMAPS}/de.json
 # Create te mapping of city IDs to city names to be used in Kafka topic data enrichment
 create-cities-mapping.py ${DATA_DIR_SIMPLEMAPS}/de.json > ${DATA_DIR_CITIES_IDS}/mapping.json
-exit 1
 
 # Now check if the dataset ZIP file already exists and is valid
 if [ ! -f ${DATA_DIR}/${DATA_FILE_NAME}.zip ]; then
