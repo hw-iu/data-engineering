@@ -95,7 +95,7 @@ as possible.
 When everything is set up, you can start the data pipeline with docker compose:
 
 ```bash
-docker compose up --detached
+docker compose up --detach
 ``` 
 
 This will start all containers in the background. You can check the logs with:
