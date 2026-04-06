@@ -7,11 +7,11 @@ This is the documentation for the project data engineering course at the IU.
 The project is a data pipeline processing energy data from photovoltaic systems in Germany.
 It consists of these components:
 
-- **Producer**: Python script producing messages to a Kafka topic from the downloaded data files
 - **Kafka Cluster**: Three Kafka nodes forming a cluster as the backbone of the data pipeline
 - **Kafka Admin**: Initializes the Kafka cluster by creating the necessary topics
-- **Enricher**: Consumes raw incoming data, enriches it with city information and produces it to another Kafka topic
-- **Processing**: Consumes enriched data, does aggregations and writes it to a database
+- **Produce**: Python script producing messages to a Kafka topic from the downloaded data files
+- **Enrich**: Consumes raw incoming data, enriches it with city information and produces it to another Kafka topic
+- **Process**: Consumes enriched data, does aggregations and writes it to a database
 - **Database**: Stores the processed data for later use, e.g. for visualization
 - **Grafana**: Visualization tool to show the data from the database
 
