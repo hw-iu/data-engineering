@@ -80,6 +80,19 @@ def process_process_messages(group_id: str = 'default',
     if debug: print(topic_input)
 
     # Initialize PostgreSQLSink
+    postgres_sink_hourly_aggregations = PostgreSQLSink(
+        host='database',
+        port=5432,
+        dbname=db_database,
+        user=db_user,
+        password=db_password,
+        table_name='hourly_aggregations',
+        schema_auto_update=True,
+        primary_key_columns=['city', 'timestamp'],
+        upsert_on_primary_key=True
+    )
+    if debug: print(postgres_sink_hourly_aggregations)
+
     postgres_sink_daily_aggregations = PostgreSQLSink(
         host='database',
         port=5432,
@@ -106,22 +119,20 @@ def process_process_messages(group_id: str = 'default',
     )
     if debug: print(postgres_sink_weekly_aggregations)
 
-    postgres_sink_monthly_aggregations = PostgreSQLSink(
-        host='database',
-        port=5432,
-        dbname=db_database,
-        user=db_user,
-        password=db_password,
-        table_name='monthly_aggregations',
-        schema_auto_update=True,
-        primary_key_columns=['city', 'timestamp'],
-        upsert_on_primary_key=True
-    )
-    if debug: print(postgres_sink_monthly_aggregations)
-
-    #dataframe = app.dataframe(topic=topic_input).group_by('site_id')
     dataframe = app.dataframe(topic=topic_input).group_by('city')
     if debug: print(dataframe)
+
+    dataframe_hourly_aggregations = (
+        dataframe
+        .tumbling_window(duration_ms=timedelta(hours=1), name='daily_aggregations')
+        .agg(
+            max_actual_pv=Max('actual_pv'),
+            mean_actual_pv=Mean('actual_pv'),
+            event_count=Count())
+        .final()
+    )
+    dataframe_hourly_aggregations.sink(postgres_sink_hourly_aggregations)
+    if debug: print(dataframe_hourly_aggregations)
 
     dataframe_daily_aggregations = (
         dataframe
@@ -146,18 +157,6 @@ def process_process_messages(group_id: str = 'default',
     )
     dataframe_weekly_aggregations.sink(postgres_sink_weekly_aggregations)
     if debug: print(dataframe_weekly_aggregations)
-
-    dataframe_monthly_aggregations = (
-        dataframe
-        .tumbling_window(duration_ms=timedelta(days=30), name='monthly_aggregations')
-        .agg(
-            max_actual_pv=Max('actual_pv'),
-            mean_actual_pv=Mean('actual_pv'),
-            event_count=Count())
-        .final()
-    )
-    dataframe_monthly_aggregations.sink(postgres_sink_monthly_aggregations)
-    if debug: print(dataframe_monthly_aggregations)
 
     app.run()
 

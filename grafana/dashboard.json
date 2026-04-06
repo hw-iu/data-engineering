@@ -115,6 +115,1006 @@
           },
           "editorMode": "builder",
           "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, max_actual_pv AS \"Berlin\", \"timestamp\" FROM daily_aggregations WHERE __key = 'Berlin' LIMIT 100000 ",
+          "refId": "Berlin",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Berlin\"",
+                "parameters": [
+                  {
+                    "name": "max_actual_pv",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "aa98b9a8-cdef-4012-b456-719d34238ca8",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Berlin"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "8bbbb98a-0123-4456-b89a-b19d3421617e",
+              "type": "group"
+            },
+            "whereString": "__key = 'Berlin'"
+          },
+          "table": "daily_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, max_actual_pv AS \"Dresden\", \"timestamp\" FROM hourly_aggregations WHERE __key = 'Dresden' LIMIT 100000 ",
+          "refId": "Dresden",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Dresden\"",
+                "parameters": [
+                  {
+                    "name": "max_actual_pv",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "aa98b9a8-cdef-4012-b456-719d34238ca8",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Dresden"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "8bbbb98a-0123-4456-b89a-b19d3421617e",
+              "type": "group"
+            },
+            "whereString": "__key = 'Dresden'"
+          },
+          "table": "daily_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, max_actual_pv AS \"Hamm\", \"timestamp\" FROM hourly_aggregations WHERE __key = 'Hamm' LIMIT 100000 ",
+          "refId": "Hamm",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Hamm\"",
+                "parameters": [
+                  {
+                    "name": "max_actual_pv",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "aa98b9a8-cdef-4012-b456-719d34238ca8",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Hamm"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "8bbbb98a-0123-4456-b89a-b19d3421617e",
+              "type": "group"
+            },
+            "whereString": "__key = 'Hamm'"
+          },
+          "table": "daily_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, max_actual_pv AS \"Munich\", \"timestamp\" FROM hourly_aggregations WHERE __key = 'Munich' LIMIT 100000 ",
+          "refId": "Munich",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Munich\"",
+                "parameters": [
+                  {
+                    "name": "max_actual_pv",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "aa98b9a8-cdef-4012-b456-719d34238ca8",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Munich"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "8bbbb98a-0123-4456-b89a-b19d3421617e",
+              "type": "group"
+            },
+            "whereString": "__key = 'Munich'"
+          },
+          "table": "daily_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, max_actual_pv AS \"Rostock\", \"timestamp\" FROM hourly_aggregations WHERE __key = 'Rostock' LIMIT 100000 ",
+          "refId": "Rostock",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Rostock\"",
+                "parameters": [
+                  {
+                    "name": "max_actual_pv",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "aa98b9a8-cdef-4012-b456-719d34238ca8",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Rostock"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "8bbbb98a-0123-4456-b89a-b19d3421617e",
+              "type": "group"
+            },
+            "whereString": "__key = 'Rostock'"
+          },
+          "table": "daily_aggregations"
+        }
+      ],
+      "title": "Hourly Aggregations Max",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "dfhdh4hw50um8a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Rostock"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "timezone": [
+          "utc"
+        ],
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count AS \"Berlin\", \"timestamp\" FROM hourly_aggregations WHERE __key = 'Berlin' LIMIT 1000000 ",
+          "refId": "Berlin",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Berlin\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 1000000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "babaabb8-0123-4456-b89a-b19d637c9dc5",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Berlin"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Berlin'"
+          },
+          "table": "hourly_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count AS \"Dresden\", \"timestamp\" FROM hourly_aggregations WHERE __key = 'Dresden' LIMIT 1000000 ",
+          "refId": "Dresden",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Dresden\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 1000000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "a9a88bb9-cdef-4012-b456-719d637d10da",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Dresden"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Dresden'"
+          },
+          "table": "hourly_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count AS \"Hamm\", \"timestamp\" FROM hourly_aggregations WHERE __key = 'Hamm' LIMIT 1000000 ",
+          "refId": "Hamm",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Hamm\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 1000000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "aba889a8-89ab-4cde-b012-319d637d512c",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Hamm"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Hamm'"
+          },
+          "table": "hourly_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT event_count AS \"Munich\", \"timestamp\" FROM hourly_aggregations WHERE __key = 'Munich' LIMIT 1000000 ",
+          "refId": "Munich",
+          "sql": {
+            "columns": [
+              {
+                "alias": "\"Munich\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 1000000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "9ab99aa9-4567-489a-bcde-f19d637d934a",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Munich"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Munich'"
+          },
+          "table": "hourly_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT event_count AS \"Rostock\", \"timestamp\" FROM hourly_aggregations WHERE __key = 'Rostock' LIMIT 1000000 ",
+          "refId": "Rostock",
+          "sql": {
+            "columns": [
+              {
+                "alias": "\"Rostock\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 1000000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "b9a89aa8-0123-4456-b89a-b19d637dc24a",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Rostock"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Rostock'"
+          },
+          "table": "hourly_aggregations"
+        }
+      ],
+      "title": "Hourly Aggregations Events",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "dfhdh4hw50um8a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepBefore",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "kwatt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "timezone": [
+          "utc"
+        ],
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
           "rawSql": "SELECT __key, max_actual_pv AS \"Berlin\", \"timestamp\" FROM daily_aggregations WHERE __key = 'Berlin' LIMIT 100000 ",
           "refId": "Berlin",
           "sql": {
@@ -513,7 +1513,1055 @@
           "table": "daily_aggregations"
         }
       ],
-      "title": "Daily Aggregations",
+      "title": "Daily Aggregations Max",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "dfhdh4hw50um8a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Rostock"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "timezone": [
+          "utc"
+        ],
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count AS \"Berlin\", \"timestamp\" FROM daily_aggregations WHERE __key = 'Berlin' LIMIT 100000 ",
+          "refId": "Berlin",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Berlin\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "8babaaa8-cdef-4012-b456-719d638a826a",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Berlin"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Berlin'"
+          },
+          "table": "daily_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count AS \"Dresden\", \"timestamp\" FROM daily_aggregations WHERE __key = 'Dresden' LIMIT 100000 ",
+          "refId": "Dresden",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Dresden\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "bb8a9b89-4567-489a-bcde-f19d638ed5cc",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Dresden"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Dresden'"
+          },
+          "table": "daily_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count AS \"Hamm\", \"timestamp\" FROM daily_aggregations WHERE __key = 'Hamm' LIMIT 100000 ",
+          "refId": "Hamm",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Hamm\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "aa8a8988-cdef-4012-b456-719d6390d0ce",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Hamm"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Hamm'"
+          },
+          "table": "daily_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count AS \"Munich\", \"timestamp\" FROM daily_aggregations WHERE __key = 'Munich' LIMIT 100000 ",
+          "refId": "Munich",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Munich\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "a9988aab-4567-489a-bcde-f19d6391f085",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Munich"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Munich'"
+          },
+          "table": "daily_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count, \"timestamp\" FROM daily_aggregations WHERE __key = 'Rostock' LIMIT 100000 ",
+          "refId": "Rostock",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "9988aa99-0123-4456-b89a-b19d6392975a",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Rostock"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Rostock'"
+          },
+          "table": "daily_aggregations"
+        }
+      ],
+      "title": "Daily Aggregations Events",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "dfhdh4hw50um8a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepBefore",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "kwatt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Rostock"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_actual_pv"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "timezone": [
+          "utc"
+        ],
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, max_actual_pv AS \"Berlin\", \"timestamp\" FROM weekly_aggregations WHERE __key = 'Berlin' LIMIT 50 ",
+          "refId": "Berlin",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Berlin\"",
+                "parameters": [
+                  {
+                    "name": "max_actual_pv",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "9bb88999-4567-489a-bcde-f19d637fc661",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Berlin"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Berlin'"
+          },
+          "table": "weekly_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, max_actual_pv AS \"Dresden\", \"timestamp\" FROM weekly_aggregations WHERE __key = 'Dresden' LIMIT 50 ",
+          "refId": "Dresden",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Dresden\"",
+                "parameters": [
+                  {
+                    "name": "max_actual_pv",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "99b9b8bb-4567-489a-bcde-f19d6380e60d",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Dresden"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Dresden'"
+          },
+          "table": "weekly_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, max_actual_pv AS \"Hamm\", \"timestamp\" FROM weekly_aggregations WHERE __key = 'Hamm' LIMIT 50 ",
+          "refId": "Hamm",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Hamm\"",
+                "parameters": [
+                  {
+                    "name": "max_actual_pv",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "99bab88b-89ab-4cde-b012-319d6381a823",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Hamm"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Hamm'"
+          },
+          "table": "weekly_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, max_actual_pv AS \"Munich\", \"timestamp\" FROM weekly_aggregations WHERE __key = 'Munich' LIMIT 50 ",
+          "refId": "Munich",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Munich\"",
+                "parameters": [
+                  {
+                    "name": "max_actual_pv",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "9888a9aa-cdef-4012-b456-719d6382b079",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Munich"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Munich'"
+          },
+          "table": "weekly_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, max_actual_pv AS \"Rostock\", \"timestamp\" FROM weekly_aggregations WHERE __key = 'Rostock' LIMIT 50 ",
+          "refId": "Rostock",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Rostock\"",
+                "parameters": [
+                  {
+                    "name": "max_actual_pv",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "aba98b9b-0123-4456-b89a-b19d63835f24",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Rostock"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Rostock'"
+          },
+          "table": "weekly_aggregations"
+        }
+      ],
+      "title": "Weekly Aggregations Max",
       "type": "timeseries"
     }
   ],
@@ -531,6 +2579,6 @@
   "timezone": "browser",
   "title": "Aggregations",
   "uid": "ad28ctr",
-  "version": 5,
+  "version": 1,
   "weekStart": ""
 }
