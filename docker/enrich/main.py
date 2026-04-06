@@ -99,7 +99,8 @@ for city_id, city_name in cities_ids_mapping.items():
 
 def convert_timestamp_to_epoch_ms(timestamp_string):
     """
-    Convert a timestamp string in the format 'YYYY-MM-DDTHH:MM:SS' to epoch milliseconds.
+    Convert a timestamp string in the format 'YYYY-MM-DDTHH:MM:SS' to epoch milliseconds
+    This is needed for quixtreams data aggregations
     :param timestamp_string:
     """
     try:
@@ -133,9 +134,9 @@ def process_consume_messages(group_id: str = 'default',
                              debug: bool = False):
     """
     Consumes messages from Kafka broker, enriches them and produces them back into
-    the Kafka topic for enriched messages.
+    the Kafka topic for enriched messages
 
-    The enrichment consists of added city data.
+    The enrichment consists of added city data
 
     :param group_id:
     :param kafka_servers:
@@ -149,7 +150,7 @@ def process_consume_messages(group_id: str = 'default',
 
     print(f"Starting consumer process {consumer_number} in group '{group_id}'")
 
-    # One consumer reads raw/enriched messages, one producer writes enriched output.
+    # reads raw/enriched messages
     consumer = Consumer({
         'bootstrap.servers': f'{kafka_servers}',
         'group.id': f'{consumer_group_id}',
@@ -157,6 +158,7 @@ def process_consume_messages(group_id: str = 'default',
     })
     consumer.subscribe([f'{kafka_topic_input}'])
 
+    # writes enriched output
     producer = Producer({
         'bootstrap.servers': f'{kafka_servers}'
     })
@@ -168,7 +170,7 @@ def process_consume_messages(group_id: str = 'default',
             messages = consumer.consume(num_messages=enrich_messages_count,
                                         timeout=1.0)
             for message in messages:
-                # parse incoming value (assume it's JSON payload or Connect-envelope)
+                # parse incoming value
                 raw = message.value()
                 try:
                     value = loads(raw.decode('utf-8'))
