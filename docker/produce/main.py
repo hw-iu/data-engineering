@@ -133,7 +133,7 @@ if __name__ == '__main__':
         if debug:
             print(f'Starting process for {data_file.name}')
         process.start()
-        # catch process
+        # catch process and put it into list of processes
         processes.append(process)
 
     # check if any process is still alive

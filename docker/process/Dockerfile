@@ -1,4 +1,4 @@
-# Only Ubuntu 26.04 has newer librdkafka-dev package, so we use it as the base image for this container
+# Only Ubuntu 26.04 has newer librdkafka-dev v2.11.1 or later package, so we use it as the base image for this container
 FROM ubuntu:26.04
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -8,6 +8,7 @@ RUN apt install -y gcc \
                    python3 \
                    python3-pip
 
+# Quixstreams library is used to process the data from Kafka topics
 RUN pip install --break-system-packages --root-user-action=ignore quixstreams[postgresql]
 
 RUN mkdir -p /app
