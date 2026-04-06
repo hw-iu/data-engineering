@@ -81,9 +81,10 @@ Docker Compose will only read the `.env` file in the root directory. Because uni
 it is named `dot_env` to avoid confusion. For actual use, it needs to be copied to `.env` or symlinked, just like this:
 
 ```bash
-ln -s dot_env .env
+cp dot_env .env
 ```
 
+Using a copy makes the setup independent of upstream changes in the git repository.
 
 ## Processing data
 

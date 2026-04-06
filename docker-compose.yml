@@ -10,6 +10,7 @@ volumes:
     grafana_data:
 
 services:
+  # Kafka cluster (KRaft mode is default since Kafka 4): 3 brokers with internal/external listeners
   kafka-broker1:
     image: ${KAFKA_IMAGE}:${KAFKA_VERSION}
     ports:
@@ -23,7 +24,7 @@ services:
     volumes:
       - kafka-broker1-data:/var/lib/kafka/data
     environment:
-      # if one is set, much more has to be set too
+      # if an ID is set, much more has to be set too
       CLUSTER_ID: kafka-cluster-1
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
@@ -52,7 +53,6 @@ services:
     volumes:
       - kafka-broker2-data:/var/lib/kafka/data
     environment:
-      # if one is set, much more has to be set too
       CLUSTER_ID: kafka-cluster-1
       KAFKA_NODE_ID: 2
       KAFKA_PROCESS_ROLES: broker,controller
@@ -81,7 +81,6 @@ services:
     volumes:
       - kafka-broker3-data:/var/lib/kafka/data
     environment:
-      # if one is set, much more has to be set too
       CLUSTER_ID: kafka-cluster-1
       KAFKA_NODE_ID: 3
       KAFKA_PROCESS_ROLES: broker,controller
@@ -97,6 +96,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
 
+  # Creates topics once brokers are healthy
   kafka-admin:
     image: ${PROJECT_IMAGE}/kafka-admin:${PROJECT_VERSION}
     build:
@@ -117,19 +117,7 @@ services:
       KAFKA_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
       DEBUG: ${DEBUG}
 
-  database:
-    image: postgres:18
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_DATABASE}
-    # only expose for debugging
-    ports:
-      - 5432:5432
-    volumes:
-      - database:/var/lib/postgresql
-
+  # One-shot producer to feed raw CSV messages into Kafka
   produce:
     image: ${PROJECT_IMAGE}/produce:${PROJECT_VERSION}
     build:
@@ -147,6 +135,7 @@ services:
       DEBUG: ${DEBUG}
       DELAY_BETWEEN_MESSAGES: ${DELAY_BETWEEN_MESSAGES}
 
+  # Enriches raw messages with auxiliary geo/city metadata
   enrich:
     image: ${PROJECT_IMAGE}/enrich:${PROJECT_VERSION}
     build:
@@ -168,6 +157,7 @@ services:
       KAFKA_TOPIC_OUTPUT: ${KAFKA_TOPIC_INCOMING_ENRICHED}
       DEBUG: ${DEBUG}
 
+  # Consumes enriched messages and writes aggregates/facts to Postgres
   process:
     image: ${PROJECT_IMAGE}/process:${PROJECT_VERSION}
     build:
@@ -187,17 +177,37 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_DATABASE: ${DB_DATABASE}
 
+  # For a first POC Postgres might be sufficient
+  database:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    # only expose for debugging
+    ports:
+      - 5432:5432
+    volumes:
+      - database:/var/lib/postgresql
+
+  # Grafana with file-based provisioning for datasource + dashboard
   grafana:
     image: grafana/grafana-enterprise:${GRAFANA_VERSION}
     ports:
+     # for local browser access - would be more sophisticated in production
       - "3000:3000"
     depends_on:
       database:
+        # needs database to work
         condition: service_started
     volumes:
       - grafana_data:/var/lib/grafana
+      # Datasource provisioning file (loaded at startup)
       - ./grafana/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      # Dashboard provider definition (tells Grafana where JSON dashboards live)
       - ./grafana/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
+      # Actual dashboard JSON consumed by the dashboard provider
       - ./grafana/dashboard.json:/var/lib/grafana/dashboards/dashboard.json
     environment:
       GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}

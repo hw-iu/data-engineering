@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # ©2026 Henri Wahl
+#
+# Setting up the Kafka cluster with the replication, partitions and topics needed later on
+#
+
 
 from os import environ
 from confluent_kafka.admin import AdminClient, NewTopic
@@ -14,6 +18,8 @@ for needed_environment_variable in NEEDED_ENVIRONMENT_VARIABLES:
         exit(f'{needed_environment_variable} environment variable is not set')
 
 kafka_servers = environ.get('KAFKA_SERVERS', 'localhost:9092')
+# topics will come in as a string where each topic is on a new line, prefixed with a dash (e.g. from a YAML list)
+# these dashes need to be cleaned out here
 kafka_topics = [x.lstrip('-').lstrip() for x in environ.get('KAFKA_TOPICS', 'incoming').splitlines()]
 kafka_partitions = int(environ.get('KAFKA_PARTITIONS', 1))
 kafka_replication_factor = int(environ.get('KAFKA_REPLICATION_FACTOR', 3))

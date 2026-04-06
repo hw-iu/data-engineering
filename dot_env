@@ -1,7 +1,8 @@
 DEBUG=false
 # delay in seconds for the producer of the incoming raw data to wait between messages
-# a delay of 0 means that the producer will produce messages as fast as possible
-#DELAY_BETWEEN_MESSAGES=1
+# a delay of 0 means that the producer will produce messages as fast as possible,
+# while a larger delay allows to simulate a more realistic scenario where messages
+# are produced at a certain rate.
 DELAY_BETWEEN_MESSAGES=0
 
 PROJECT_IMAGE=ghcr.io/hw-iu/data-engineering
@@ -13,7 +14,9 @@ KAFKA_VERSION=4.1.2
 KAFKA_TOPIC_INCOMING_RAW=incoming-raw
 KAFKA_TOPIC_INCOMING_ENRICHED=incoming-enriched
 
+# distribute the data across multiple partitions to allow for parallel processing by multiple consumers
 KAFKA_PARTITIONS=10
+# replication factor defines how many copies of the data are stored in the Kafka cluster for fault tolerance
 KAFKA_REPLICATION_FACTOR=3
 
 # at least the number of consumers which enrich the incoming raw data
