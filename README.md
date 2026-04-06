@@ -61,7 +61,8 @@ To make things easier, we will download into a local `data` directory too.
 The final setup call will be based on the then released version, but currently sticks on `latest`.
 
 To run the setup, execute the following command in the terminal. Make sure to run it in the root directory of
-this project, so that the `data` directory is created in the right place.
+this project, so that the `data` directory is created in the right place. To check what happens during setup,
+just check the files in [setup](docker/setup).
 
 ```bash
 docker run \
