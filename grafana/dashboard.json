@@ -1956,7 +1956,7 @@
           "editorMode": "builder",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT __key, event_count, \"timestamp\" FROM daily_aggregations WHERE __key = 'Rostock' LIMIT 100000 ",
+          "rawSql": "SELECT __key, event_count AS \"Rostock\", \"timestamp\" FROM daily_aggregations WHERE __key = 'Rostock' LIMIT 100000 ",
           "refId": "Rostock",
           "sql": {
             "columns": [
@@ -1970,6 +1970,7 @@
                 "type": "function"
               },
               {
+                "alias": "\"Rostock\"",
                 "parameters": [
                   {
                     "name": "event_count",
@@ -2562,6 +2563,522 @@
         }
       ],
       "title": "Weekly Aggregations Max",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "dfhdh4hw50um8a"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Rostock"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "timezone": [
+          "utc"
+        ],
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.4.2",
+      "targets": [
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count AS \"Berlin\", \"timestamp\" FROM weekly_aggregations WHERE __key = 'Berlin' LIMIT 100000 ",
+          "refId": "Berlin",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Berlin\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "a9888988-0123-4456-b89a-b19d63aa7817",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Berlin"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Berlin'"
+          },
+          "table": "weekly_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count AS \"Dresden\", \"timestamp\" FROM weekly_aggregations WHERE __key = 'Dresden' LIMIT 100000 ",
+          "refId": "Dresden",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Dresden\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "89bbabb9-0123-4456-b89a-b19d63ab3f84",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Dresden"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Dresden'"
+          },
+          "table": "weekly_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count, \"timestamp\" FROM weekly_aggregations WHERE __key = 'Hamm' LIMIT 100000 ",
+          "refId": "Hamm",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "9a989aba-89ab-4cde-b012-319d63ad6ef5",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Hamm"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Hamm'"
+          },
+          "table": "weekly_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count AS \"Munich\", \"timestamp\" FROM weekly_aggregations WHERE __key = 'Munich' LIMIT 100000 ",
+          "refId": "Munich",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Munich\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "8bb9ba8b-cdef-4012-b456-719d63ae196c",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Munich"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Munich'"
+          },
+          "table": "weekly_aggregations"
+        },
+        {
+          "dataset": "data",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "dfhdh4hw50um8a"
+          },
+          "editorMode": "builder",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT __key, event_count AS \"Rostock\", \"timestamp\" FROM weekly_aggregations WHERE __key = 'Rostock' LIMIT 100000 ",
+          "refId": "Rostock",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "__key",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"Rostock\"",
+                "parameters": [
+                  {
+                    "name": "event_count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "\"timestamp\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 100000,
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "bab88989-89ab-4cde-b012-319d63aebd17",
+                  "properties": {
+                    "field": "__key",
+                    "fieldSrc": "field",
+                    "operator": "equal",
+                    "value": [
+                      "Rostock"
+                    ],
+                    "valueError": [
+                      null
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "text"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "aaaaba8a-0123-4456-b89a-b19d63695392",
+              "type": "group"
+            },
+            "whereString": "__key = 'Rostock'"
+          },
+          "table": "weekly_aggregations"
+        }
+      ],
+      "title": "Weekly Aggregations Events",
       "type": "timeseries"
     }
   ],
