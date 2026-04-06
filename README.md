@@ -86,6 +86,10 @@ cp dot_env .env
 
 Using a copy makes the setup independent of upstream changes in the git repository.
 
+The most interesting variable is `DELAY_BETWEEN_MESSAGES` in the service `produce`, because it controls how fast
+the simulated data is spooled into the Kafka cluster. If it is set to `0`, the producer will send messages as fast
+as possible.
+
 ## Processing data
 
 When everything is set up, you can start the data pipeline with docker compose:

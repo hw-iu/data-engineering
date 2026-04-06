@@ -8,11 +8,13 @@
 from os import environ
 from confluent_kafka.admin import AdminClient, NewTopic
 
+# variables which have to be defined, for example in docker-compose.yml
 NEEDED_ENVIRONMENT_VARIABLES = [
     'KAFKA_SERVERS',
     'KAFKA_TOPICS',
 ]
 
+# break if not all necessary variables are given
 for needed_environment_variable in NEEDED_ENVIRONMENT_VARIABLES:
     if not environ.get(needed_environment_variable):
         exit(f'{needed_environment_variable} environment variable is not set')
@@ -31,13 +33,13 @@ print(f'Configured topics: {kafka_topics}')
 print(f'Configured partitions: {kafka_partitions}')
 print(f'Configured replication_factor: {kafka_replication_factor}')
 
-# vorhandene Topics abfragen
+# check for existing topics
 metadata = kafka_admin.list_topics(timeout=10)
 topics_existing = set(metadata.topics.keys()) if metadata and metadata.topics else set()
 if topics_existing:
     print(f'Already existing topics: {topics_existing}')
 
-# Topics erstellen (wenn noch nicht vorhanden)
+# create non-existing topics
 for kafka_topic in kafka_topics:
     if kafka_topic not in topics_existing:
         print(f'Creating topic: {kafka_topic}')

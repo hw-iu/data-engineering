@@ -1,6 +1,7 @@
 FROM python:3.14-slim
 ARG DEBIAN_FRONTEND=noninteractive
 
+# Install confluent_kafka library for interacting with Kafka via Python
 RUN pip install --root-user-action=ignore confluent_kafka
 
 RUN mkdir -p /app

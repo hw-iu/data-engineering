@@ -14,16 +14,19 @@ from time import sleep
 
 from confluent_kafka import Producer
 
+# variables which have to be defined, for example in docker-compose.yml
 NEEDED_ENVIRONMENT_VARIABLES = [
     'DATA_DIRECTORY',
     'KAFKA_SERVERS',
     'KAFKA_TOPIC',
 ]
 
+# break if not all necessary variables are given
 for needed_environment_variable in NEEDED_ENVIRONMENT_VARIABLES:
     if not environ.get(needed_environment_variable):
         exit(f'{needed_environment_variable} environment variable is not set')
 
+# DATA_DIRECTORY is the path where the raw CSV data files are expected to be found
 data_directory_path = Path(environ.get('DATA_DIRECTORY'), '')
 if not data_directory_path.exists():
     exit(f'{data_directory_path.name} does not exist')
@@ -33,6 +36,7 @@ if not data_directory_path.is_dir():
 kafka_servers = environ.get('KAFKA_SERVERS', 'localhost:9092')
 kafka_topic = environ.get('KAFKA_TOPIC', 'incoming')
 
+# very important setting, configures resource consumption and time of processing for the whole system
 delay_between_messages = int(environ.get('DELAY_BETWEEN_MESSAGES', '0'))
 
 debug = True if environ.get('DEBUG', 'false').lower() == 'true' else False
@@ -43,23 +47,44 @@ stderr.reconfigure(line_buffering=True)
 
 
 def producer_callback(error, message):
+    """
+    Callback function for producer - logs error if any occurs and debugs otherwise if needed
+    :param error:
+    :param message:
+    :return:
+    """
     if error:
         print(f'Error producing message: {error}')
+    else:
+        if debug: print(message.value())
 
 
 def process_data_file(data_file: Path,
                       kafka_servers: str = '',
                       kafka_topic: str = '',
                       debug: bool = False):
+    """
+    Processes one CSV file of a photovoltaic site with example data
+
+    :param data_file:
+    :param kafka_servers:
+    :param kafka_topic:
+    :param debug:
+    :return:
+    """
     if debug:
         print(f'Found {data_file}')
 
+    # connect to Kafka broker and create producer instance
     producer = Producer({
         'bootstrap.servers': f'{kafka_servers}'
     })
 
+    # read CSV file and produce messages to Kafka topic, one message per row, with some type conversions
     with open(data_file) as data_file_object:
+        # read CSV into dict
         reader = DictReader(data_file_object, delimiter=';')
+        # counter of CSV lines, just for debugging
         counter = 0
         kafka_key = data_file.stem.encode('utf-8')
         if debug:
@@ -80,7 +105,7 @@ def process_data_file(data_file: Path,
                     print(f'Error converting row {counter}: {e} — row: {row}')
                 continue
 
-            # Send plain JSON (no Connect schema envelope) — kafka-consumer-enrich will add schema later
+            # Send plain JSON
             value_bytes = dumps(payload).encode('utf-8')
             producer.produce(
                 topic=kafka_topic,
@@ -89,12 +114,17 @@ def process_data_file(data_file: Path,
                 callback=producer_callback
             )
             producer.flush()
+            # wait as long as configured
             sleep(delay_between_messages)
+        # finished, show statistics
         print(f'finished {data_file_object.name} with {counter} rows')
 
 
 if __name__ == '__main__':
+    # collect all CSV reading processes in a list to be able to control them
     processes = list()
+    # every CSV file found triggers one separate process for producing its data to Kafka in parallel,
+    # which allows testing performance of Kafka - instead of spoolind data serially into the cluster.
     for data_file in data_directory_path.glob('[0-9]*.csv'):
         process = Process(target=process_data_file, args=(data_file,
                                                           kafka_servers,
@@ -103,6 +133,7 @@ if __name__ == '__main__':
         if debug:
             print(f'Starting process for {data_file.name}')
         process.start()
+        # catch process
         processes.append(process)
 
     # check if any process is still alive
