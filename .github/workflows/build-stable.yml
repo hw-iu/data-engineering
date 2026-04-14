@@ -1,8 +1,8 @@
-name: build-latest
+name: build-stable
 on:
   push:
-    # No pushes on the main branch
-    tags: 'v*'
+    # only build on tags that follow the semver pattern
+    tags: '*.*.*'
 
 env:
   # Full name of the container image including the registry and the repository
