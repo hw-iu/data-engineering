@@ -6,7 +6,7 @@ DEBUG=false
 DELAY_BETWEEN_MESSAGES=0
 
 PROJECT_IMAGE=ghcr.io/hw-iu/data-engineering
-PROJECT_VERSION=latest
+PROJECT_VERSION=0.5.1
 
 KAFKA_IMAGE=apache/kafka
 KAFKA_VERSION=4.1.2
