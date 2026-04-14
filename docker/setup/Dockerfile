@@ -7,7 +7,7 @@ RUN apt -y install curl \
 
 # playwright is needed for getting the simplemaps JSON file, because it is only downloadable by a Javascript
 # capabable browser - which renders curl useless here
-RUN pip install --root-user-action=ignore playwright
+RUN pip install --break-system-packages --root-user-action=ignore playwright
 RUN playwright install firefox
 # curl functionality is achieved here with playwright
 COPY curl-browser.py /usr/local/bin

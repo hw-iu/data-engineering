@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # ©2026 Henri Wahl
 #
-# Get topic from Kafka and enrich photovoltaic data with geographic information
+# Get topic from Kafka, enrich photovoltaic data with geographic information and epoch
+# timestamp and produce enriched data back into Kafka
 #
 
 from copy import deepcopy

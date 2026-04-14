@@ -40,6 +40,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
 
+  # Second Kafka broker with same configuration but different ports and volumes
   kafka-broker2:
     image: ${KAFKA_IMAGE}:${KAFKA_VERSION}
     ports:
@@ -68,6 +69,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: ${KAFKA_REPLICATION_FACTOR}
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
 
+  # Third Kafka broker with same configuration but different ports and volumes
   kafka-broker3:
     image: ${KAFKA_IMAGE}:${KAFKA_VERSION}
     ports:

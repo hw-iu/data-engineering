@@ -23,7 +23,7 @@ mkdir -p ${DATA_DIR_CITIES_IDS}
 # Download the simplemaps dataset for Germany, which contains the city names and their IDs
 # Only possible with a browser due to Javascript
 curl-browser.py https://simplemaps.com/static/data/country-cities/de/de.json > ${DATA_DIR_SIMPLEMAPS}/de.json
-# Create te mapping of city IDs to city names to be used in Kafka topic data enrichment
+# Create the mapping of city IDs to city names to be used in Kafka topic data enrichment
 create-cities-mapping.py ${DATA_DIR_SIMPLEMAPS}/de.json > ${DATA_DIR_CITIES_IDS}/mapping.json
 
 # Now check if the dataset ZIP file already exists and is valid
@@ -43,12 +43,14 @@ else
     fi
 fi
 
+# Only download the dataset if needed
 if [ "$DOWNLOAD_NEEDED" = true ]; then
     echo
     echo "Downloading the EMSX dataset from Kaggle..."
     curl -L -o ${DATA_DIR}/${DATA_FILE_NAME}.zip  https://www.kaggle.com/api/v1/datasets/download/adri1g/${DATA_FILE_NAME}
     echo "Verifying the integrity of the downloaded ZIP file..."
     SHA256SUM_CURRENT=$(sha256sum ${DATA_DIR}/${DATA_FILE_NAME}.zip | awk '{print $1}')
+    # Check if downloaded file has the expected SHA256 checksum, if not exit with error
     if [ "${SHA256SUM_CURRENT}" == "${EMSX_SHA256SUM_WANTED}" ]; then
         echo "File is valid. Download successful."
     else

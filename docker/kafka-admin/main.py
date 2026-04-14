@@ -8,7 +8,7 @@
 from os import environ
 from confluent_kafka.admin import AdminClient, NewTopic
 
-# variables which have to be defined, for example in docker-compose.yml
+# variables that have to be defined, for example in docker-compose.yml
 NEEDED_ENVIRONMENT_VARIABLES = [
     'KAFKA_SERVERS',
     'KAFKA_TOPICS',
@@ -44,6 +44,8 @@ for kafka_topic in kafka_topics:
     if kafka_topic not in topics_existing:
         print(f'Creating topic: {kafka_topic}')
         new_topic = NewTopic(kafka_topic, num_partitions=kafka_partitions, replication_factor=kafka_replication_factor)
+        # create_topics returns a dict of futures for each topic, which can be used to check
+        # if the topic creation was successful or if any error occurred
         futures = kafka_admin.create_topics([new_topic], request_timeout=15)
         future = futures.get(kafka_topic)
         try:

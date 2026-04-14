@@ -4,6 +4,7 @@
 #
 # Slightly overkill but https://simplemaps.com/static/data/country-cities/de/de.json
 # needs to be downloaded by a Javascript-capable browser
+#
 
 from playwright.sync_api import sync_playwright
 from os import environ

@@ -1,0 +1,36 @@
+name: build-latest
+on:
+  push:
+    # No pushes on the main branch
+    tags: 'v*'
+
+env:
+  # Full name of the container image including the registry and the repository
+  registry_image: ghcr.io/${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    strategy:
+      # Because all builds follow the same scheme we can use a matrix to build all images in one job
+      matrix:
+        image: [enrich, kafka-admin, process, produce, setup]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      # Login to the GitHub Container Registry to be able to push the built image
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+
+      # First, build the container image of the current matrix entry...
+      - name: Build container image
+        run: docker build -t ${{ env.registry_image }}/${{ matrix.image }}:${{ github.ref_name }} -f docker/${{ matrix.image }}/Dockerfile docker/${{ matrix.image }}
+
+      # ...then push the built image to the GitHub Container Registry
+      - name: Push container image
+        run: docker push ${{ env.registry_image }}/${{ matrix.image }}:${{ github.ref_name }}

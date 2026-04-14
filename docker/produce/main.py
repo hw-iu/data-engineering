@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # ©2026 Henri Wahl
+#
+# Produce content of CSV files into Kafka topic
+#
 
 from csv import DictReader
 from json import dumps
