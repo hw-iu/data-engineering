@@ -2,7 +2,7 @@ name: build-stable
 on:
   push:
     # only build on tags that follow the semver pattern
-    tags: '*.*.*'
+    tags: '^*\.*\.*$'
 
 env:
   # Full name of the container image including the registry and the repository
