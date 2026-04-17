@@ -1,4 +1,6 @@
+# Set to 'true' to enable debugging output
 DEBUG=false
+
 # delay in seconds for the producer of the incoming raw data to wait between messages
 # a delay of 0 means that the producer will produce messages as fast as possible,
 # while a larger delay allows to simulate a more realistic scenario where messages

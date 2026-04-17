@@ -12,7 +12,7 @@ It consists of these components:
 - **Produce**: Python script producing messages to a Kafka topic from the downloaded data files
 - **Enrich**: Consumes raw incoming data, enriches it with city information and produces it to another Kafka topic
 - **Process**: Consumes enriched data, does aggregations and writes it to a database
-- **Database**: Stores the processed data for later use, e.g. for visualization
+- **Database**: Stores the processed data for later use, e.g., for visualization
 - **Grafana**: Visualization tool to show the data from the database
 
 
@@ -30,7 +30,7 @@ The setup and the actual processing will be done in containers, so there are no 
 The downloaded data will take about **5 GB** of free space.
 The extracted data will take about **15 GB** of free space.
 The data in the container volumes will take about **10 GB** of free space, which sounds a lot,
-but because Kafka runs as cluster with three nodes, it will replicate the data three times.
+but because Kafka runs as a cluster with three nodes, it will replicate the data three times.
 
 For checking out the code, you will need **git**.
 Alternatively, you can also download the code as a zip file from GitHub.
@@ -111,5 +111,14 @@ docker compose logs --follow --timestamps
 
 ## Watching data
 
-The setup contains a Grafana instance that is configured to show the data in the database.
+The setup contains a Grafana instance configured to show the data in the database.
 You can access it at [http://localhost:3000](http://localhost:3000) with the credentials from the `.env` file.
+
+
+## Building the container images locally
+
+If you want to build the container images locally, you can use the following command:
+
+```bash
+docker compose build
+```
