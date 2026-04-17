@@ -7,12 +7,16 @@ DEBUG=false
 # are produced at a certain rate.
 DELAY_BETWEEN_MESSAGES=0
 
+# Container registry and images for custom images
 PROJECT_IMAGE=ghcr.io/hw-iu/data-engineering
+# version of the project, used for tagging the custom images built for the project
 PROJECT_VERSION=1.0.0
 
+# Kafka image and version
 KAFKA_IMAGE=apache/kafka
 KAFKA_VERSION=4.1.2
 
+# Kafka topics for incoming raw data and enriched data
 KAFKA_TOPIC_INCOMING_RAW=incoming-raw
 KAFKA_TOPIC_INCOMING_ENRICHED=incoming-enriched
 
