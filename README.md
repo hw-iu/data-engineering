@@ -89,9 +89,6 @@ To run the setup, execute the script [setup.sh](setup.sh) in the terminal. Make 
 this project, so that the `data` directory is created in the right place. To check what happens during setup,
 just check the files in [setup](docker/setup).
 
-The file `.env` is sourced to get the `PROJECT_VERSION` variable, which is used to determine which version
-of the setup container to use.
-
 ```bash
 bash setup.sh
 ```
