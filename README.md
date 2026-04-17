@@ -18,7 +18,13 @@ It consists of these components:
 
 ## Requirements
 
-This project should run on any Linux system that has **Docker** installed. It is tested on Fedora 43 and Ubuntu 24.04.
+This project should run on any Linux system that has **Docker** and the **Docker Compose plugin** installed as well as
+**bash** for the setup script.
+For checking out the source code, **git** is an option, but you can also download the code as a zip file from GitHub.
+Running the whole project does not require git or any further tools because everything is container-based.
+
+It is tested on Linux Fedora 43 and Linux Ubuntu 24.04.
+
 The setup and the actual processing will be done in containers, so there are no further requirements.
 
 The downloaded data will take about **5 GB** of free space.
@@ -53,26 +59,6 @@ After cloning the repository, you need to enter the project directory. You can d
 cd data-engineering
 ```
 
-### Download and extract data
-
-All containers that acces the downloaded data, expect to find it in the `/data` directory.
-To make things easier, we will download into a local `data` directory too.
-
-The final setup call will be based on the then released version, but currently sticks on `latest`.
-
-To run the setup, execute the following command in the terminal. Make sure to run it in the root directory of
-this project, so that the `data` directory is created in the right place. To check what happens during setup,
-just check the files in [setup](docker/setup).
-
-```bash
-docker run \
-        --interactive \
-        --rm \
-        --tty \
-        --volume "$(pwd)/data:/data" \
-        ghcr.io/hw-iu/data-engineering/setup:latest
-```
-
 ### Configuring environment
 
 The file [dot_env](dot_env) contains all environment variables that are needed for the project. It comes with sensible
@@ -90,6 +76,26 @@ Using a copy makes the setup independent of upstream changes in the git reposito
 The most interesting variable is `DELAY_BETWEEN_MESSAGES` in the service `produce`, because it controls how fast
 the simulated data is spooled into the Kafka cluster. If it is set to `0`, the producer will send messages as fast
 as possible.
+
+
+### Download and extract data
+
+All containers that acces the downloaded data, expect to find it in the `/data` directory.
+To make things easier, we will download into a local `data` directory too.
+
+The final setup call will be based on the then released version, but currently sticks on `latest`.
+
+To run the setup, execute the script [setup.sh](setup.sh) in the terminal. Make sure to run it in the root directory of
+this project, so that the `data` directory is created in the right place. To check what happens during setup,
+just check the files in [setup](docker/setup).
+
+The file `.env` is sourced to get the `PROJECT_VERSION` variable, which is used to determine which version
+of the setup container to use.
+
+```bash
+bash setup.sh
+```
+
 
 ## Processing data
 
