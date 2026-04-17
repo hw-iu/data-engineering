@@ -168,6 +168,7 @@ def process_consume_messages(group_id: str = 'default',
     try:
         while True:
             # pull a small batch to reduce overhead while keeping latency low
+            # will get up to `enrich_messages_count`
             messages = consumer.consume(num_messages=enrich_messages_count,
                                         timeout=1.0)
             for message in messages:

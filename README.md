@@ -64,6 +64,8 @@ cd data-engineering
 The file [dot_env](dot_env) contains all environment variables that are needed for the project. It comes with sensible
 defaults, but you can change them if you want.
 
+For further reference, see the comments in [dot_env](dot_env).
+
 Docker Compose will only read the `.env` file in the root directory. Because unixoid systems hide dot files by default,
 it is named `dot_env` to avoid confusion. For actual use, it needs to be copied to `.env` or symlinked, just like this:
 
@@ -76,6 +78,10 @@ Using a copy makes the setup independent of upstream changes in the git reposito
 The most interesting variable is `DELAY_BETWEEN_MESSAGES` in the service `produce`, because it controls how fast
 the simulated data is spooled into the Kafka cluster. If it is set to `0`, the producer will send messages as fast
 as possible.
+
+Another interesting one is `ENRICH_MESSAGES_COUNT`, which controls how many messages will be
+enriched at once. For a batch load this should be higher, but for similating streaming it should
+be just `1` to get a realistic behavior.
 
 
 ### Download and extract data

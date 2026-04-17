@@ -25,9 +25,11 @@ KAFKA_REPLICATION_FACTOR=3
 ENRICH_CONSUMER_COUNT=5
 # how many messages the enrichment consumers should consume at once
 # should be 1 when simulating realtime streaming and something higher
-# when batch loading the database
+# when batch loading the database - will get up to that amount of messages
+# at once
 ENRICH_MESSAGES_COUNT=10
-
+# number of consumers which consume the enriched data, process it and
+# write it to the database
 PROCESS_CONSUMER_COUNT=10
 
 # Database access for server and client
