@@ -80,7 +80,7 @@ the simulated data is spooled into the Kafka cluster. If it is set to `0`, the p
 as possible.
 
 Another interesting one is `ENRICH_MESSAGES_COUNT`, which controls how many messages will be
-enriched at once. For a batch load this should be higher, but for similating streaming it should
+enriched at once. For a batch load this should be higher, but for simulating streaming it should
 be just `1` to get a realistic behavior.
 
 
