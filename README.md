@@ -86,7 +86,7 @@ be just `1` to get a realistic behavior.
 
 ### Download and extract data
 
-All containers that acces the downloaded data, expect to find it in the `/data` directory.
+All containers that access the downloaded data, expect to find it in the `/data` directory.
 To make things easier, we will download into a local `data` directory too.
 
 The final setup call will be based on the then released version, but currently sticks on `latest`.
